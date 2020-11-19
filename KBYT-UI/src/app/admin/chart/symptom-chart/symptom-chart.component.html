@@ -1,0 +1,11 @@
+<div class="select-time">
+    <div>
+        <span>Thống kê từ: </span>
+        <nz-range-picker ngModel [(ngModel)]="DateNow" (ngModelChange)="onChange($event)" nzFormat="dd-MM-yyyy">
+        </nz-range-picker>
+    </div>
+</div>
+
+<div class="chart-container">
+    <canvas id="canvas">{{BarChart}}</canvas>
+</div>

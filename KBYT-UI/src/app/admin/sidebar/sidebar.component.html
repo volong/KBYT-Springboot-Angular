@@ -1,0 +1,34 @@
+<nz-layout class="layout">
+    <nz-sider>
+        <div class="logo"></div>
+        <ul nz-menu nzTheme="dark" nzMode="inline">
+            <!-- <li nz-menu-item *ngFor="let router of routerList" [routerLink]="[router.path]" routerLinkActive="active">
+                <i nz-icon nzType={{router.icon}}></i>
+                <span>{{router.title}}</span>
+            </li> -->
+
+            <li nz-menu-item [routerLink]="['table']" routerLinkActive="active">
+                <i nz-icon nzType="table"></i>
+                <span>Bảng</span>
+            </li>
+
+
+            <li nz-submenu nzTitle="Biểu đồ" nzIcon="line-chart">
+                <ul>
+                    <li [routerLink]="['chart/persons-chart']" routerLinkActive="active" nz-menu-item>Theo tờ khai</li>
+                    <li [routerLink]="['chart/symptom-chart']" nz-menu-item>Theo triệu chứng</li>
+                    <li [routerLink]="['chart/contact-chart']" nz-menu-item>Theo tiếp xúc</li>
+                </ul>
+            </li>
+
+            <li nz-menu-item (click)="logout()">
+                <i nz-icon nzType='logout'></i>
+                <span>Đăng xuất</span>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-layout class="right-layout">
+        <router-outlet></router-outlet>
+        <nz-footer>Hệ thống Khai Báo Y Tế</nz-footer>
+    </nz-layout>
+</nz-layout>

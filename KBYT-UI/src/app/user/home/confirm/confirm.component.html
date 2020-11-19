@@ -1,0 +1,23 @@
+<a (click)="showModal()">Cập nhật tờ khai >></a>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Cập nhật tờ khai" (nzOnCancel)="handleCancel()" nzOkDisabled="true">
+
+    <div nz-row>
+        <div nz-col nzSpan="18">
+            <form [formGroup]="form">
+                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                    <input type="text" formControlName="passport_number" nz-input
+                        placeholder="Nhập số CMND hoặc số Hộ khẩu" maxlength="9" minlength="9" />
+                </nz-input-group>
+                <ng-template #suffixIconButton>
+                    <button nz-button nzType="primary" (click)="search()" nzSearch><i nz-icon
+                            nzType="search"></i></button>
+                </ng-template>
+            </form>
+        </div>
+        <br>
+        <div class="result" *ngIf="result === 1">
+            <a (click)="update(person.id_person)">Tìm thấy tờ khai với số CMND là: {{person.passportNumber}}</a>
+        </div>
+    </div>
+</nz-modal>

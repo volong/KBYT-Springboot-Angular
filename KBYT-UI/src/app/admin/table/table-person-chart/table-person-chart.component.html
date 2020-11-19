@@ -1,0 +1,72 @@
+<nz-header>
+    <nz-page-header nzBackIcon [nzGhost]="false">
+        <nz-page-header-title>Bảng tờ khai theo ngày {{date}}</nz-page-header-title>
+    </nz-page-header>
+</nz-header>
+
+<nz-content>
+    <div class="inner-content">
+
+        <div>
+            <nz-table #nzTable [nzData]="['']" nzTableLayout="fixed" [nzFrontPagination]="false"
+                [nzShowPagination]="false">
+                <thead>
+                    <tr>
+                        <th>Họ và tên
+                        </th>
+                        <th>Số CMND
+
+                        </th>
+                        <th>Giới tính</th>
+                        <th>Ngày sinh</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Ngày khai báo</th>
+                        <th nzWidth="12%">Tỉnh thành</th>
+                        <th nzWidth="12%">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let person of persons | async">
+                        <tr>
+                            <td>{{person.fullName}}</td>
+                            <td>{{person.passportNumber}}</td>
+                            <td>{{person.gender}}</td>
+                            <td>{{person.yob}}</td>
+                            <td>{{person.phoneNumber}}</td>
+                            <td>{{person.email}}</td>
+                            <td>{{person.date}}</td>
+                            <td>{{person.province.province}}</td>
+
+                            <td>
+                                <a (click)="personDetail(person.id_person)">Xem</a>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <a (click)="delete(person.id_person)" *ngIf="person.isDelete === 0">Xoá</a>
+                                <a (click)="undelete(person.id_person)" *ngIf="person.isDelete === 1">Huỷ xoá</a>
+
+                            </td>
+
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </nz-table>
+
+            <!-- <div class="page">
+                <nz-pagination nzPageIndex="{{pageIndex}}" nzTotal="{{total}}" nzShowSizeChanger
+                    nzPageSize="{{pageSize}}" (nzPageIndexChange)="pageIndexChanged($event)"
+                    (nzPageSizeChange)="pageSizeChange($event)">
+                </nz-pagination>
+            </div> -->
+
+            <div class="page">
+                <nz-pagination nzPageIndex="{{pageIndex}}" nzTotal="{{total}}" nzShowSizeChanger
+                    nzPageSize="{{pageSize}}" (nzPageIndexChange)="pageIndexChanged($event)"
+                    (nzPageSizeChange)="pageSizeChange($event)">
+                </nz-pagination>
+            </div>
+
+
+        </div>
+    </div>
+</nz-content>

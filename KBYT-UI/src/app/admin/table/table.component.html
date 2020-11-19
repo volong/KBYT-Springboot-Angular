@@ -1,0 +1,100 @@
+<nz-header>
+    <nz-page-header nzBackIcon [nzGhost]="false">
+        <nz-page-header-title>Bảng</nz-page-header-title>
+    </nz-page-header>
+</nz-header>
+
+<nz-content>
+    <div class="inner-content">
+
+        <div nz-row>
+            <div nz-col nzSpan="6">
+                <div class="search">
+                    <nz-select ngModel="{{table}}" (ngModelChange)="tableChange($event)">
+                        <nz-option nzValue="0" nzLabel="Tờ khai hợp lệ"></nz-option>
+                        <nz-option nzValue="3" nzLabel="Tất cả tờ khai"></nz-option>
+                        <nz-option nzValue="1" nzLabel="Tờ khai không hợp lệ"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <nz-table #nzTable [nzData]="['']" nzTableLayout="fixed" [nzFrontPagination]="false"
+                [nzShowPagination]="false">
+                <thead>
+                    <tr>
+                        <th>Họ và tên
+                        </th>
+                        <th>Số CMND
+                            <nz-filter-trigger [(nzVisible)]="visible" [nzDropdownMenu]="menu">
+                                <i nz-icon nzType="search"></i>
+                            </nz-filter-trigger>
+                        </th>
+                        <th>Giới tính</th>
+                        <th>Ngày sinh</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Ngày khai báo</th>
+                        <th nzWidth="12%">Tỉnh thành</th>
+                        <th nzWidth="12%">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let person of persons | async">
+                        <tr>
+                            <!-- <td> <i nz-icon [nzType]="'plus-circle'" (click)="personDetail(person.id_person)"></i></td> -->
+
+                            <td>{{person.fullName}}</td>
+                            <td>{{person.passportNumber}}</td>
+                            <td>{{person.gender}}</td>
+                            <td>{{person.yob}}</td>
+                            <td>{{person.phoneNumber}}</td>
+                            <td>{{person.email}}</td>
+                            <td>{{person.date}}</td>
+                            <td>{{person.province.province}}</td>
+
+                            <td>
+                                <a (click)="personDetail(person.id_person)">Xem</a>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <a (click)="delete(person.id_person)" *ngIf="person.isDelete === 0">Xoá</a>
+                                <a (click)="undelete(person.id_person)" *ngIf="person.isDelete === 1">Huỷ xoá</a>
+
+                            </td>
+
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </nz-table>
+
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <div class="ant-table-filter-dropdown">
+                    <form [formGroup]="form">
+
+                        <div class="search-box">
+                            <input type="text" formControlName="passport_number" nz-input
+                                placeholder="Tìm kiếm bằng số CMND" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="result" *ngIf="result === 1">
+                        <a (click)="personDetail(person.id_person)"> Tìm thấy tờ khai: {{person.passportNumber}}</a>
+                    </div>
+                </div>
+            </nz-dropdown-menu>
+
+            <div class="page">
+                <nz-pagination nzPageIndex="{{pageIndex}}" nzTotal="{{total}}" nzShowSizeChanger
+                    nzPageSize="{{pageSize}}" (nzPageIndexChange)="pageIndexChanged($event)"
+                    (nzPageSizeChange)="pageSizeChange($event)">
+                </nz-pagination>
+            </div>
+        </div>
+
+
+    </div>
+</nz-content>

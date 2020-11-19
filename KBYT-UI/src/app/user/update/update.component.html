@@ -1,0 +1,269 @@
+<div class="container-contact100">
+    <div class="wrap-contact100">
+        <form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+
+            <div class="contact100-form validate-form" novalidate="novalidate">
+                <span class="contact100-form-title">
+                    TỜ KHAI Y TẾ
+                </span>
+
+                <div class="wrap-input100 validate-input bg1 khaiho">
+                    <span class="label-input100">Khai hộ</span>
+                    <input type="checkbox" (click)="clickKhaiho()" id="khaiho" [checked]="khaiho == 1">
+                </div>
+
+                <div class="update">
+                    <a (click)="backHome()">Huỷ cập nhật tờ khai</a>
+                </div>
+
+                <div class="wrap-input100 validate-input bg1">
+                    <span class="label-input100">Họ Tên</span>
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Vui lòng nhập Họ tên!">
+                            <nz-input-group>
+                                <input type="text" nz-input formControlName="full_name" nzSize="large" maxlength="40"
+                                    minlength="5" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="wrap-input100 validate-input bg1">
+                    <span class="label-input100">Số CMND</span>
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Số CMND không hợp lệ hoặc bị bỏ trống">
+                            <nz-input-group>
+                                <input type="text" nz-input formControlName="passport_number" nzSize="large"
+                                    maxlength="9" minlength="9" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="wrap-input100 validate-input bg1">
+                    <span class="label-input100">Số điện thoại</span>
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Số điện thoại không hợp lệ hoặc bị bỏ trống">
+                            <nz-input-group>
+                                <input type="text" nz-input formControlName="phone_number" maxlength="10"
+                                    minlength="10" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="wrap-input100 validate-input bg1">
+                    <span class="label-input100">Email</span>
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Email không hợp lệ!">
+                            <nz-input-group>
+                                <input type="text" nz-input formControlName="email" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100">
+                    <span class="label-input100">Ngày sinh</span>
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Vui lòng chọn Ngày sinh!">
+                            <nz-date-picker nzFormat="dd-MM-yyyy" nzPlaceHolder="" class="input100"
+                                formControlName="yob">
+                            </nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100">
+                    <span class="label-input100">Giới tính</span>
+                    <div>
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="Vui lòng chọn Giới tính!">
+                                <select ngModel class="select" formControlName="gender">
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="Nam">Khác</option>
+                                </select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+
+
+                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100">
+                    <span class="label-input100">Tỉnh thành</span>
+                    <div>
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="Vui lòng chọn Tỉnh thành">
+                                <select ngModel (ngModelChange)="provinceChange($event)" class="select"
+                                    formControlName="id_province">
+                                    <option *ngFor="let province of provinces | async" value="{{province.id_province}}">
+                                        {{province.province}}</option>
+                                </select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+
+                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100">
+                    <span class="label-input100">Quận, huyện</span>
+                    <div>
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="Vui lòng chọn Quận, huyện">
+                                <select ngModel (ngModelChange)="districtChange($event)" class="select"
+                                    formControlName="id_district">
+                                    <option *ngFor="let district of districts | async" value="{{district.id_district}}">
+                                        {{district.district}}</option>
+                                </select>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                    </div>
+                </div>
+
+
+                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100">
+                    <span class="label-input100">Phường, xã</span>
+                    <div>
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="Vui lòng chọn Phường, xã">
+                                <select ngModel class="select" formControlName="id_ward">
+                                    <option *ngFor="let ward of wards | async" value="{{ward.id_ward}}">{{ward.ward}}
+                                    </option>
+                                </select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+
+
+                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100">
+                    <span class="label-input100">Đường, tổ dân phố, thôn, xóm..</span>
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Vui lòng nhập Đường, tổ dân phố, thôn xóm...!">
+                            <nz-input-group>
+                                <input type="text" nz-input formControlName="street" maxlength="40" minlength="3" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="wrap-input100 bg1">
+                    <span class="label-input100">Trong vòng 14 ngày qua,
+                        Anh/Chị có đến quốc gia/vùng lãnh thổ nào (Có thể đi qua nhiều quốc gia)</span>
+                    <textarea formControlName="comment" nz-input rows="2" formControlName="act_in14days"
+                        maxlength="1000"></textarea>
+
+                </div>
+
+
+                <div class="wrap-input100 validate-input bg1">
+                    <div class="tableChoiceData  bg1 ">
+                        <nz-table [nzData]="['']" [nzFrontPagination]="false">
+                            <thead>
+                                <tr>
+                                    <th nzWidth="85%">Bạn có xuất hiện triệu chứng nào sau đây?</th>
+                                    <th>Có</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                <tr *ngFor="let tsymptom of tsymptoms">
+                                    <td> {{ tsymptom.listSymptom.symptom }}</td>
+                                    <td>
+                                        <input id="demo" type="checkbox" checked
+                                            value="{{tsymptom.listSymptom.id_symptom}}"
+                                            (change)="onChangeSymptom(tsymptom.listSymptom.id_symptom, $event.target.checked)">
+                                    </td>
+                                </tr>
+
+                                <tr *ngFor="let symptom of symptoms">
+                                    <td>{{ symptom.symptom }}</td>
+                                    <td>
+                                        <input type="checkbox" value="{{symptom.id_symptom}}"
+                                            (change)="onChangeSymptom(symptom.id_symptom, $event.target.checked)">
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+
+                <div class="wrap-input100 validate-input bg1">
+                    <div class="tableChoiceData  bg1 ">
+                        <nz-table [nzData]="['']" [nzFrontPagination]="false">
+                            <thead>
+                                <tr>
+                                    <th nzWidth="85%">Trong 14 ngày qua, bạn có tiếp xúc với?</th>
+                                    <th>Có</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let tcontact of tcontacts">
+                                    <td>{{ tcontact.listContact.contact }}</td>
+                                    <td> <input type="checkbox" value="{{tcontact.listContact.id_contact}}" checked
+                                            (change)="onChangeContact(tcontact.listContact.id_contact, $event.target.checked)">
+                                    </td>
+
+                                <tr *ngFor="let contact of contacts">
+                                    <td>{{ contact.contact }}</td>
+                                    <td> <input type="checkbox" value="{{contact.id_contact}}"
+                                            (change)="onChangeContact(contact.id_contact, $event.target.checked)">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+
+
+                <div class="wrap-input100 validate-input bg1">
+                    <div class="tableChoiceData  bg1 ">
+                        <nz-table [nzData]="['']" [nzFrontPagination]="false">
+                            <thead>
+                                <tr>
+                                    <th nzWidth="85%">Bạn có mắc bệnh nào sau đây không?</th>
+                                    <th>Có</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let tsick of tsicks">
+                                    <td>{{ tsick.listSick.sick }}</td>
+                                    <td>
+                                        <input type="checkbox" value="{{tsick.listSick.id_sick}}" checked
+                                            (change)="onChangeSick(tsick.listSick.id_sick, $event.target.checked)">
+                                    </td>
+                                </tr>
+
+                                <tr *ngFor="let sick of sicks">
+                                    <td>{{ sick.sick }}</td>
+                                    <td>
+                                        <input type="checkbox" value="{{sick.id_sick}}"
+                                            (change)="onChangeSick(sick.id_sick, $event.target.checked)">
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+                <div class="container-contact100-form-btn">
+                    <nz-spin [nzSpinning]="isSpinning">
+
+                        <button class="contact100-form-btn">
+                            <span>
+                                CẬP NHẬT TỜ KHAI
+                                <input class="fa fa-long-arrow-right m-l-7" type="submit" id="myBtn" value="">
+                            </span>
+                        </button>
+                    </nz-spin>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

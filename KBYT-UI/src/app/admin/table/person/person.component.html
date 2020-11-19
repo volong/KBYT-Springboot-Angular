@@ -1,0 +1,45 @@
+<nz-header>
+    <nz-page-header nzBackIcon [nzGhost]="false">
+        <nz-page-header-title>Chi tiết</nz-page-header-title>
+    </nz-page-header>
+</nz-header>
+
+<nz-content>
+    <div class="inner-content">
+        <div nz-row>
+            <div nz-col nzSpan="12">
+                <nz-descriptions [nzColon]="false" [nzColumn]="1" nzTitle="Chi tiết tờ khai">
+                    <nz-descriptions-item nzTitle="(*) Khai hộ" *ngIf="person.khaiho === 1"></nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Họ Tên: ">{{person.fullName}}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Số CMND: ">{{person.passportNumber}}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Năm sinh: ">{{person.yob}}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Giới tính: ">{{person.gender}}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Số điện thoại: ">{{person.phoneNumber}}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Email: ">{{person.email}}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Ngày khai báo: ">{{person.date}}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Địa chỉ: ">{{person.street}}, {{person.ward.ward}},
+                        {{person.district.district}},
+                        {{person.province.province}}
+                    </nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Hoạt động trong 14 ngày gần nhất: ">{{person.actIn14days}}
+                    </nz-descriptions-item>
+
+                    <nz-descriptions-item nzTitle="Triệu chứng: "> <span
+                            *ngFor="let symptom of symptoms | async">{{symptom.listSymptom.symptom}},
+                        </span>
+                    </nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Đã tiếp xúc với: "> <span
+                            *ngFor="let contact of contacts | async">{{contact.listContact.contact}},
+                        </span>
+                    </nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Bệnh đã mắc phải: "> <span
+                            *ngFor="let sick of sicks | async">{{sick.listSick.sick}},
+                        </span>
+                    </nz-descriptions-item>
+                </nz-descriptions>
+            </div>
+
+        </div>
+
+    </div>
+</nz-content>
