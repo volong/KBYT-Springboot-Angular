@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-
+  // Onchange trường khaiho
   khaihoChange(isChecked: boolean) {
     if (isChecked == true) {
       this.khaiho = 1
@@ -94,16 +94,20 @@ export class HomeComponent implements OnInit {
   }
 
 
+  // Tạo một obj Person và trả về id
   create() {
     this.personService.create(this.person).subscribe(
       (data) => {
         this.currentId = +data;
       },
-      (error) => console.log(error)
+      (error) => {
+        // console.log(error)
+      }
     );
     this.person = new Person();
   }
 
+  // Load danh sách Tỉnh thành, Triệu chứng, Tiếp xúc, Bệnh
   reloadData() {
     this.provinces = this.addressService.listProvince();
     this.symptoms = this.symptomService.findAll();
@@ -111,14 +115,17 @@ export class HomeComponent implements OnInit {
     this.sicks = this.sickService.findAll();
   }
 
+  // Load danh sách quận huyện theo id tỉnh thành
   loadDistricts(id_province: string) {
     this.districts = this.addressService.listDistrict(id_province);
   }
 
+  // Load danh sách phường xã theo id quận huyện
   loadWards(id_district: string) {
     this.wards = this.addressService.listWard(id_district)
   }
 
+  // Onchange Tỉnh thành
   provinceChange(result) {
     this.id_province = result;
     if (this.id_province != '') {
@@ -127,6 +134,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Onchange Quận huyện
   districtChange(result) {
     this.id_district = result;
     if (this.id_district != '') {
@@ -134,11 +142,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Đến trang login
   login() {
     // this.router.navigateByUrl('/login')
     this.router.navigate(['/login'])
   }
 
+  // Lưu thông tin người dùng đã khai báo
   update() {
     this.id = +(<HTMLInputElement>document.getElementById("id")).value;
     var formData: any = new FormData();
@@ -171,6 +181,7 @@ export class HomeComponent implements OnInit {
     )
   }
 
+  // Kiểm tra số CMND người dùng nhập có bị trùng hay chưa.
   findPassport() {
     this.passport_number = this.validateForm.get('passport_number').value;
 
@@ -192,8 +203,7 @@ export class HomeComponent implements OnInit {
       )
   }
 
-
-
+  // Check validate
   submitForm(value: { full_name: string; email: string; cmnd: string; confirm: string; comment: string }): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
@@ -208,8 +218,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
-
+  // Onchange checkbox Triệu chứng
   onChangeSymptom(id_symptom: number, isChecked: boolean) {
     if (isChecked) {
       this.symptomArray.push(id_symptom)
@@ -219,6 +228,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Onchange checkbox Tiếp xúc
   onChangeContact(id_contact: number, isChecked: boolean) {
     if (isChecked) {
       this.contactArray.push(id_contact)
@@ -229,6 +239,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Onchange checkbox Bệnh
   onChangeSick(id_sick: number, isChecked: boolean) {
     if (isChecked) {
       this.sickArray.push(id_sick)
@@ -388,7 +399,6 @@ function isName(value: string): boolean {
   return typeof value === 'string' && ' ' && /(([a-z])\b)/g
     .test(value);
 }
-
 
 export type MyErrorsOptions = { vn: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
